@@ -1,5 +1,37 @@
 # React + Vite
 
+## Deploy frontend dengan Gin backend
+
+Frontend membutuhkan variabel Vite berikut pada proses build/deploy:
+
+```env
+VITE_API_BASE_URL=https://your-gin-backend.example.com
+```
+
+Salin `.env.example` menjadi `.env.local` untuk development lokal, atau tambahkan
+`VITE_API_BASE_URL` pada environment settings penyedia hosting sebelum build.
+
+Tidak boleh menggunakan `http://localhost:8081` pada deployment production karena
+`localhost` merujuk ke perangkat pengunjung, bukan server Gin. Jangan mengakhiri
+nilai dengan `/`.
+
+Contoh:
+
+```env
+VITE_API_BASE_URL=https://api.example.com
+```
+
+Backend Gin juga harus:
+
+- dapat diakses melalui HTTPS atau HTTP host publik, bukan hanya `localhost`;
+- mengizinkan origin frontend melalui CORS;
+- mengizinkan header `Authorization` dan `Content-Type`;
+- mengizinkan method `GET`, `POST`, `PUT`, `PATCH`, dan `DELETE`.
+
+Setelah mengubah environment variable, lakukan build ulang. Vite memasukkan nilai
+`VITE_*` ke bundle saat build, sehingga perubahan environment tidak berlaku pada
+build lama.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
