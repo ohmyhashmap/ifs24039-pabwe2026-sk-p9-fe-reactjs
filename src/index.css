@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-accent: #2563eb;
+  --color-bg: #f6f8fc;
+  --color-fg: #172033;
+  color-scheme: light;
+}
+
+:root.dark {
+  --color-accent: #93c5fd;
+  --color-bg: #0b1120;
+  --color-fg: #e5eaf3;
+  color-scheme: dark;
+}
+
+:root[data-accent="emerald"] { --color-accent: #047857; }
+:root[data-accent="rose"] { --color-accent: #be123c; }
+:root[data-accent="violet"] { --color-accent: #6d28d9; }
+:root[data-accent="amber"] { --color-accent: #b45309; }
+
+:root.dark[data-accent="emerald"] { --color-accent: #34d399; }
+:root.dark[data-accent="rose"] { --color-accent: #fb7185; }
+:root.dark[data-accent="violet"] { --color-accent: #a78bfa; }
+:root.dark[data-accent="amber"] { --color-accent: #fbbf24; }
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+:where(
+  body,
+  nav,
+  input,
+  textarea,
+  select,
+  [class*="dark:"],
+  [class*="var(--color-accent)"]
+) {
+  transition-property: color, background-color, border-color;
+  transition-duration: 180ms;
+  transition-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    body,
+    nav,
+    input,
+    textarea,
+    select,
+    [class*="dark:"],
+    [class*="var(--color-accent)"]
+  ) {
+    transition-duration: 0s;
+  }
+}
